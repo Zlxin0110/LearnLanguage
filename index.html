@@ -27,69 +27,43 @@
                 <th>序号</th>
                 <th>日期</th>
                 <th>课程内容</th>
-                <th>操作</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-    <br>
-    <button onclick="addRow()">添加记录</button>
-    <button onclick="saveData()">保存数据</button>
 
     <script>
-        let count = 1;
-
-        function addRow(date = '', content = '') {
-            let table = document.getElementById("classTable").getElementsByTagName('tbody')[0];
-            let newRow = table.insertRow();
-
-            let cell1 = newRow.insertCell(0);
-            let cell2 = newRow.insertCell(1);
-            let cell3 = newRow.insertCell(2);
-            let cell4 = newRow.insertCell(3);
-            
-            cell1.innerText = count++;
-            cell2.innerHTML = `<input type="date" value="${date}">`;
-            cell3.innerHTML = `<input type="text" placeholder="输入课程内容" value="${content}">`;
-            cell4.innerHTML = '<button onclick="deleteRow(this)">删除</button>';
-        }
-
-        function deleteRow(button) {
-            let row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-            count--; 
-        }
-
-        function saveData() {
-            let table = document.getElementById("classTable").getElementsByTagName('tbody')[0];
-            let rows = table.getElementsByTagName('tr');
-            let data = [];
-            for (let i = 0; i < rows.length; i++) {
-                let cells = rows[i].getElementsByTagName('td');
-                let date = cells[1].getElementsByTagName('input')[0].value;
-                let content = cells[2].getElementsByTagName('input')[0].value;
-                data.push({ date, content });
-            }
-            localStorage.setItem('classData', JSON.stringify(data));
-        }
+        // 你的 GitHub Pages 链接，例如 https://yourusername.github.io/repository-name/data.json
+        const dataUrl = "data.json";  // 如果 HTML 和 data.json 在同一目录，则直接写文件名
 
         function loadData() {
-            fetch('data.json') // 确保 data.json 在同级目录
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(entry => addRow(entry.date, entry.content));
+            fetch(dataUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("加载 data.json 失败");
+                    }
+                    return response.json();
                 })
-                .catch(error => console.error('加载数据失败:', error));
+                .then(data => {
+                    let table = document.getElementById("classTable").getElementsByTagName('tbody')[0];
+                    table.innerHTML = "";  // 清空旧数据
+
+                    data.forEach((entry, index) => {
+                        let newRow = table.insertRow();
+                        let cell1 = newRow.insertCell(0);
+                        let cell2 = newRow.insertCell(1);
+                        let cell3 = newRow.insertCell(2);
+
+                        cell1.innerText = index + 1;
+                        cell2.innerText = entry.date;
+                        cell3.innerText = entry.content;
+                    });
+                })
+                .catch(error => console.error("读取数据失败:", error));
         }
 
         window.onload = loadData;
     </script>
-    
-    <h3>使用示例</h3>
-    <p>1. 点击“添加记录”按钮，会在表格中新增一行，包括日期输入框和课程内容输入框。</p>
-    <p>2. 在新增行中选择日期并输入课程内容。</p>
-    <p>3. 若需删除某行，可点击该行对应的“删除”按钮。</p>
-    <p>4. 点击“保存数据”按钮，可将当前输入的数据存入浏览器本地存储，页面刷新后仍可查看。</p>
 </body>
 </html>
