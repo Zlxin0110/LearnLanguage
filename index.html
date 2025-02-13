@@ -75,11 +75,12 @@
         }
 
         function loadData() {
-            let storedData = localStorage.getItem('classData');
-            if (storedData) {
-                let data = JSON.parse(storedData);
-                data.forEach((entry, index) => addRow(entry.date, entry.content));
-            }
+            fetch('data.json') // 确保 data.json 在同级目录
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(entry => addRow(entry.date, entry.content));
+                })
+                .catch(error => console.error('加载数据失败:', error));
         }
 
         window.onload = loadData;
