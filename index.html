@@ -34,7 +34,7 @@
     <script>
         async function loadJsonFiles() {
             try {
-                const response = await fetch("/repository/file_list.json");
+                const response = await fetch("/docs/file_list.json");
                 const data = await response.json();
 
                 for (const filePath of data.files) {
