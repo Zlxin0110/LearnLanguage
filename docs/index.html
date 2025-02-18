@@ -34,8 +34,12 @@
     <script>
         async function loadJsonFiles() {
             try {
-                const response = await fetch("docs/file_list.json");
-                const data = await response.json();
+                const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/file_list.json";
+                fetch(fileListUrl)
+    .then(response => response.json())
+    .then(data => console.log("文件列表:", data))
+    .catch(error => console.error("获取文件列表失败:", error));
+                
 
                 for (const filePath of data.files) {
                     await loadAndRenderJson(filePath);
