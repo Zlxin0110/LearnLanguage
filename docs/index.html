@@ -1,107 +1,37 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON 数据表</title>
+    <title>Learn Japanese</title>
     <style>
-        /* 只显示外部表格的边框 */
-        table {
-            border: 1px solid black;
-            border-collapse: collapse;
-            width: 80%;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 5px;
-            text-align: left;
-        }
-
-        /* 让内嵌表格没有边框 */
-        .inner-table {
-            border: none !important;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        .inner-table td {
-            border: none !important;
-            padding: 2px;
+        #hidden-content {
+            display: none;
         }
     </style>
     <script>
-        async function loadJsonFiles() {
-            try {
-                const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/file_list.json";
-
-            fetch(fileListUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log("文件列表:", data);
-                    return Promise.all(data.files.map(loadAndRenderJson));  // 并行加载所有文件
-                    })
-                .catch(error => console.error("获取文件列表失败:", error));
-            } catch (error) {
-                console.error("获取文件列表失败:", error);
-            }
-                
-        }
-
-        async function loadAndRenderJson(filePath) {
-            try {
-                const response = await fetch(filePath);
-                const records = await response.json();
-
-                // 创建表格
-                const table = document.createElement("table");
-
-                // 添加标题（可折叠）
-                const title = document.createElement("h3");
-                title.textContent = `数据文件: ${filePath}`;
-                title.style.cursor = "pointer";
-                title.onclick = () => {
-                    table.style.display = table.style.display === "none" ? "table" : "none";
-                };
-
-                document.body.appendChild(title);
-                document.body.appendChild(table);
-
-                records.forEach(record => {
-                    const row = table.insertRow();
-
-                    // 第1列：日期
-                    const dateCell = row.insertCell();
-                    dateCell.textContent = record.Date;
-
-                    // 第2列：内嵌表格（隐藏边框）
-                    const detailCell = row.insertCell();
-                    const innerTable = document.createElement("table");
-                    innerTable.classList.add("inner-table");  // **使用 CSS 控制无边框**
-                    innerTable.innerHTML = `
-                        <tr><td>文法</td><td>${record.Grammar}</td></tr>
-                        <tr><td>接続</td><td>${record.Connection}</td></tr>
-                        <tr><td>意味</td><td>${record.Meaning}</td></tr>
-                        <tr><td>例文</td><td>${record.Sample.replace(/\r?\n/g, "<br>")}</td></tr>
-                    `;
-                    detailCell.appendChild(innerTable);
-
-                    // 第3列：Others
-                    const othersCell = row.insertCell();
-                    othersCell.textContent = record.Others;
-                });
-            } catch (error) {
-                console.error(`加载 JSON 文件 ${filePath} 失败:`, error);
+        function verifyPassword() {
+            var password = document.getElementById("password").value;
+            if (password === "123456") {
+                document.getElementById("hidden-content").style.display = "block";
+                document.getElementById("password-form").style.display = "none";
+            } else {
+                alert("sorry!!! try again please.");
             }
         }
-
-        window.onload = async function () {
-            await loadJsonFiles();
-        };
     </script>
 </head>
 <body>
-    <h1>JSON 数据表格</h1>
+    <h2> memo </h2>
+    <div id="password-form">
+        <input type="password" id="password" placeholder="input password">
+        <button onclick="verifyPassword()">Signin</button>
+    </div>
+
+    <div id="hidden-content">
+        <h2>learn Japanese</h2>
+        <li><a href="sitabayasi.html">条目1</a></li>
+        <li>条目2</li>
+        <li>条目3</li>
+    </div>
 </body>
 </html>
