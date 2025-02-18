@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月曜日の勉強</title>
+    <style>
+/* 外部表格 */
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+/* 外部表格单元格 */
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top; /* 让内容从单元格的左上角开始 */
+}
+
+/* 隐藏表格（内嵌表格） */
+.inner-table {
+    border: none !important;  /* 确保没有边框 */
+    border-collapse: separate !important;  /* 取消 collapse，避免边框问题 */
+    border-spacing: 0; /* 避免额外间距 */
+    max-width: 100%;  /* 避免超出父元素 */
+    table-layout: auto;  /* 让列宽自适应内容 */
+}
+
+/* 内嵌表格的单元格 */
+.inner-table td {
+    border: none !important; /* 移除单元格边框 */
+    padding: 2px;
+}
+
+/* 控制内嵌表格的第一列宽度 */
+.inner-table td:first-child {
+    width: 100px;
+    white-space: nowrap; /* 避免换行 */
+}
+
+/* 控制内嵌表格的第二列宽度 */
+.inner-table td:last-child {
+    width: auto;
+}
+
+/* 标题可点击折叠 */
+h3 {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+    </style>
+    <script>
+        async function loadJsonFiles() {
+            try {
+                const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/file_list.json";
+                const response = await fetch(fileListUrl);
+                const data = await response.json();
+
+                console.log("文件列表:", data);
+                await Promise.all(data.files.map(loadAndRenderJson));  
+
+            } catch (error) {
+                console.error("获取文件列表失败:", error);
+            }
+        }
+
+        async function loadAndRenderJson(filePath) {
+            try {
+                const response = await fetch(filePath);
+                const records = await response.json();
+
+                console.log(`加载文件: ${filePath}`, records);  // **调试输出**
+
+                // 创建标题
+                const title = document.createElement("h3");
+                const fileName = filePath.split('/').pop().replace(".json", "");
+                title.textContent = `${fileName}`;
+                title.onclick = () => {
+                    table.style.display = table.style.display === "none" ? "table" : "none";
+                };
+
+                // 创建表格（默认隐藏）
+                const table = document.createElement("table");
+                table.style.display = "none";
+
+                document.body.appendChild(title);
+                document.body.appendChild(table);
+
+                records.forEach(record => {
+                    const row = table.insertRow();
+
+                    // 第1列：日期
+                    const dateCell = row.insertCell();
+                    dateCell.textContent = record.Date;
+
+                    // 第2列：内嵌表格
+                    const detailCell = row.insertCell();
+                    const innerTable = document.createElement("table");
+                    innerTable.classList.add("inner-table");
+                    
+                    innerTable.innerHTML = `
+                        <tr><td>文法</td><td>${record.Grammar || "N/A"}</td></tr>
+                        <tr><td>接続</td><td>${record.Connection || "N/A"}</td></tr>
+                        <tr><td>意味</td><td>${record.Meaning || "N/A"}</td></tr>
+                        <tr><td>例文</td><td>${record.Sample ? record.Sample.replace(/\r?\n/g, "<br>") : "N/A"}</td></tr>
+                    `;
+                    
+                    console.log("插入 inner-table:", innerTable.innerHTML);  // **调试输出**
+                    detailCell.appendChild(innerTable);
+
+                    // 第3列：Others
+                    const othersCell = row.insertCell();
+                    othersCell.textContent = record.Others || "N/A";
+                });
+
+            } catch (error) {
+                console.error(`加载 JSON 文件 ${filePath} 失败:`, error);
+            }
+        }
+
+        window.onload = async function () {
+            // 添加返回上级目录的链接
+            const backLink = document.createElement("a");
+            backLink.href = "javascript:history.back()";
+            backLink.textContent = "返回上一级目录";
+            document.body.insertBefore(backLink, document.body.firstChild);
+
+            await loadJsonFiles();
+        };
+    </script>
+</head>
+<body>
+    <h1>月曜日の勉強</h1>
+</body>
+</html>
