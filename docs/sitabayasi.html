@@ -11,6 +11,7 @@ table {
     border-collapse: collapse;
     width: 80%;
     margin-bottom: 20px;
+    table-layout: fixed; /* 固定列宽 */
 }
 
 /* 外部表格单元格 */
@@ -20,7 +21,11 @@ th, td {
     text-align: left;
     vertical-align: top; /* 让内容从单元格的左上角开始 */
 }
-
+/* 设定列宽比例 */
+td:nth-child(1) { width: 10%; }  /* 日期列 */
+td:nth-child(2) { width: 45%; }  /* 内嵌表格列 */
+td:nth-child(3) { width: 45%; }  /* Others 列 */
+        
 /* 隐藏表格（内嵌表格） */
 .inner-table {
     border: none !important;  /* 确保没有边框 */
