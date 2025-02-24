@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>土曜日の勉強</title>
+    <style>
+        /* 外部表格 */
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+            table-layout: auto; /* 自动列宽 */
+        }
+
+        /* 外部表格单元格 */
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+            vertical-align: top; /* 让内容从单元格的左上角开始 */
+        }
+
+        /* 标题可点击折叠 */
+        h3 {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        const baseUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/";
+        async function loadJsonFiles(targetKey) {
+            try {
+                const fileListUrl = baseUrl + "Repository/file_list.json";
+                const response = await fetch(fileListUrl);
+                const data = await response.json();
+        
+                // 在数组中找到具有指定 Key 的对象
+                const targetData = data.data.find(item => item.Key === targetKey);
+        
+                if (targetData) {
+                    console.log(`处理 Key 为 ${targetKey} 的文件列表:`, targetData.files);
+                    await Promise.all(targetData.files.map(loadAndRenderJson));
+                } else {
+                    console.log(`未找到 Key 为 ${targetKey} 的数据`);
+                }
+            } catch (error) {
+                console.error("获取文件列表失败:", error);
+            }
+        }
+
+        async function loadAndRenderJson(filePath) {
+            try {
+                const response = await fetch(baseUrl + filePath);
+                const records = await response.json();
+
+                console.log(`加载文件: ${baseUrl + filePath}`, records);  // 调试输出
+
+                // 创建标题
+                const title = document.createElement("h3");
+                const fileName = filePath.split('/').pop().replace(".json", "");
+                title.textContent = `${fileName}`;
+                title.onclick = () => {
+                    table.style.display = table.style.display === "none" ? "table" : "none";
+                };
+
+                // 创建表格（默认隐藏）
+                const table = document.createElement("table");
+                table.style.display = "none";
+
+                document.body.appendChild(title);
+                document.body.appendChild(table);
+
+                records.forEach(record => {
+                    const row = table.insertRow();
+
+                    // 第1列：日期
+                    const dateCell = row.insertCell();
+                    dateCell.textContent = record.Date;
+
+                    // 第2列：备注
+                    const memoCell = row.insertCell();
+                    memoCell.textContent = record.Memo || "N/A";
+                });
+
+            } catch (error) {
+                console.error(`加载 JSON 文件 ${filePath} 失败:`, error);
+            }
+        }
+
+        window.onload = async function () {
+            // 添加返回上级目录的链接
+            const backLink = document.createElement("a");
+            backLink.href = "javascript:history.back()";
+            backLink.textContent = "返回上一级目录";
+            document.body.insertBefore(backLink, document.body.firstChild);
+
+            await loadJsonFiles("Saturday");
+        };
+    </script>
+</head>
+<body>
+    <h1>土曜日の勉強</h1>
+</body>
+</html>
