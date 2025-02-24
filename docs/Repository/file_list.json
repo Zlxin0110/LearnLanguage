@@ -3,27 +3,27 @@
         {
             "Key": "Monday",
             "files": [
-                "repository/Monday/条件.json",
-                "repository/Monday/順接.json"
+                "Repository/Monday/条件.json",
+                "Repository/Monday/順接.json"
             ]
         },
         {
             "Key": "Saturday",
             "files": [
-                "repository/Saturday/Memo.json"
+                "Repository/Saturday/Memo.json"
             ]
         },
         {
             "Key": "Sunday",
             "files": [
-                "repository/Sunday/Memo.json"
+                "Repository/Sunday/Memo.json"
             ]
         },
         {
             "Key": "Myself",
             "files": [
-                "repository/Myself/条件.json",
-                "repository/Myself/順接.json"
+                "Repository/Myself/条件.json",
+                "Repository/Myself/順接.json"
             ]
         }
     ]
