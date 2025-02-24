@@ -1,0 +1,26 @@
+{
+    "Key": "Monday",
+    "files": [
+        "repository/sitabayasi/条件.json",
+        "repository/sitabayasi/順接.json"
+    ]
+},
+{
+    "Key": "Saturday",
+    "files": [
+        "repository/Saturday/Memo.json",
+    ]
+},
+{
+    "Key": "Sunday",
+    "files": [
+        "repository/Sunday/Memo.json",
+    ]
+},
+{
+    "Key": "Myself",
+    "files": [
+        "repository/Myself/条件.json",
+        "repository/Myself/順接.json"
+    ]
+}
