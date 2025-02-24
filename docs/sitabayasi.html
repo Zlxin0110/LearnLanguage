@@ -61,9 +61,10 @@ h3 {
 
     </style>
     <script>
+        const baseUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/";
         async function loadJsonFiles(targetKey) {
             try {
-                const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/Repository/file_list.json";
+                const fileListUrl = baseUrl + "Repository/file_list.json";
                 const response = await fetch(fileListUrl);
                 const data = await response.json();
         
@@ -84,7 +85,7 @@ h3 {
         
         async function loadAndRenderJson(filePath) {
             try {
-                const response = await fetch(filePath);
+                const response = await fetch(baseUrl+filePath);
                 const records = await response.json();
 
                 console.log(`加载文件: ${filePath}`, records);  // **调试输出**
