@@ -82,7 +82,7 @@
 
                     // 第2列：备注
                     const memoCell = row.insertCell();
-                    memoCell.textContent = record.Memo || "N/A";
+                    memoCell.innerHTML = record.Memo ? record.Memo.replace(/\r?\n/g, "<br>") : "N/A";
                 });
 
             } catch (error) {
