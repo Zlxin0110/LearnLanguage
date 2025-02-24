@@ -61,20 +61,23 @@ h3 {
 
     </style>
     <script>
-        async function loadJsonFiles() {
-            try {
-                const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/file_list.json";
-                const response = await fetch(fileListUrl);
-                const data = await response.json();
+    async function loadJsonFiles(targetKey) {
+      try {
+        const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/Repository/file_list.json";
+        const response = await fetch(fileListUrl);
+        const data = await response.json();
 
-                console.log("文件列表:", data);
-                await Promise.all(data.files.map(loadAndRenderJson));  
-
-            } catch (error) {
-                console.error("获取文件列表失败:", error);
-            }
+        // 检查 JSON 文件中的 Key
+        if (data.Key === targetKey) {
+          console.log(`处理 Key 为 ${targetKey} 的文件列表:`, data.files);
+          await Promise.all(data.files.map(loadAndRenderJson));
+        } else {
+          console.log(`未找到 Key 为 ${targetKey} 的数据`);
         }
-
+      } catch (error) {
+        console.error("获取文件列表失败:", error);
+      }
+    }
         async function loadAndRenderJson(filePath) {
             try {
                 const response = await fetch(filePath);
@@ -136,7 +139,7 @@ h3 {
             backLink.textContent = "返回上一级目录";
             document.body.insertBefore(backLink, document.body.firstChild);
 
-            await loadJsonFiles();
+            await loadJsonFiles("Monday");
         };
     </script>
 </head>
