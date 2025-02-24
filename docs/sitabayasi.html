@@ -61,23 +61,27 @@ h3 {
 
     </style>
     <script>
-    async function loadJsonFiles(targetKey) {
-      try {
-        const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/Repository/file_list.json";
-        const response = await fetch(fileListUrl);
-        const data = await response.json();
-
-        // 检查 JSON 文件中的 Key
-        if (data.Key === targetKey) {
-          console.log(`处理 Key 为 ${targetKey} 的文件列表:`, data.files);
-          await Promise.all(data.files.map(loadAndRenderJson));
-        } else {
-          console.log(`未找到 Key 为 ${targetKey} 的数据`);
+        async function loadJsonFiles(targetKey) {
+            try {
+                const fileListUrl = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/Repository/file_list.json";
+                const response = await fetch(fileListUrl);
+                const data = await response.json();
+        
+                // 在数组中找到具有指定 Key 的对象
+                const targetData = data.data.find(item => item.Key === targetKey);
+        
+                if (targetData) {
+                    console.log(`处理 Key 为 ${targetKey} 的文件列表:`, targetData.files);
+                    await Promise.all(targetData.files.map(loadAndRenderJson));
+                } else {
+                    console.log(`未找到 Key 为 ${targetKey} 的数据`);
+                }
+            } catch (error) {
+                console.error("获取文件列表失败:", error);
+            }
         }
-      } catch (error) {
-        console.error("获取文件列表失败:", error);
-      }
-    }
+
+        
         async function loadAndRenderJson(filePath) {
             try {
                 const response = await fetch(filePath);
