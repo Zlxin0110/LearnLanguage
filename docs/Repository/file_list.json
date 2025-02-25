@@ -20,7 +20,7 @@
             ]
         },
         {
-            "Key": "Myself",
+            "Key": "MGrammar",
             "files": [
                 "Repository/MGrammar/1.時間関係.json",
                 "Repository/MGrammar/2.範囲の始まり・限度.json"
