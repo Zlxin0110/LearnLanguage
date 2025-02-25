@@ -22,8 +22,8 @@
         {
             "Key": "Myself",
             "files": [
-                "Repository/Myself/1.時間関係.json",
-                "Repository/Myself/2.範囲の始まり・限度.json"
+                "Repository/MGrammar/1.時間関係.json",
+                "Repository/MGrammar/2.範囲の始まり・限度.json"
             ]
         }
     ]
