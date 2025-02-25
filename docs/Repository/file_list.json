@@ -20,10 +20,10 @@
             ]
         },
         {
-            "Key": "MGrammar",
+            "Key": "MyGrammar",
             "files": [
-                "Repository/MGrammar/1.時間関係.json",
-                "Repository/MGrammar/2.範囲の始まり・限度.json"
+                "Repository/MyGrammar/1.時間関係.json",
+                "Repository/MyGrammar/2.範囲の始まり・限度.json"
             ]
         }
     ]
