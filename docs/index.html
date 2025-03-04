@@ -7,7 +7,15 @@
         #hidden-content {
             display: none;
         }
+        #markdown-content {
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
     </style>
+    <!-- 引入 marked.js 库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
     <script>
         function verifyPassword() {
             var password = document.getElementById("password").value;
@@ -18,10 +26,26 @@
                 alert("sorry!!! try again please.");
             }
         }
+
+        async function loadMarkdown() {
+            const mdURL = "https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/Repository/test.md"; // 你的 Markdown 文件 URL
+
+            try {
+                const response = await fetch(mdURL);
+                if (!response.ok) throw new Error("Failed to fetch Markdown file.");
+
+                const markdownText = await response.text(); // 读取 Markdown 文件内容
+
+                document.getElementById("markdown-content").innerHTML = marked.parse(markdownText); // 用 marked.js 解析 Markdown
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("markdown-content").innerHTML = "<p>加载 Markdown 失败。</p>";
+            }
+        }
     </script>
 </head>
 <body>
-    <h2> memo </h2>
+    <h2>memo</h2>
     <div id="password-form">
         <input type="password" id="password" placeholder="input password">
         <button onclick="verifyPassword()">Signin</button>
@@ -29,13 +53,18 @@
 
     <div id="hidden-content">
         <h2>learn Japanese</h2>
-        <li><a href="sitabayasi.html">月曜日</a></li>
-        <li><a href="saturday.html">土曜日</a></li>
-        <li><a href="sunday.html">日曜日</li>
-        <li><a href="my_grammar.html">文法（自分）</li>
+        <ul>
+            <li><a href="sitabayasi.html">月曜日</a></li>
+            <li><a href="saturday.html">土曜日</a></li>
+            <li><a href="sunday.html">日曜日</a></li>
+            <li><a href="my_grammar.html">文法（自分）</a></li>
+        </ul>
+
+        <!-- Markdown 渲染内容 -->
+        <h2>Markdown 内容</h2>
+        <div id="markdown-content"></div>
+
+        <button onclick="loadMarkdown()">加载 Markdown</button>
     </div>
-
-    <iframe src="https://raw.githubusercontent.com/zlxin0110/LearnLanguage/main/docs/Repository/test.md" width="100%" height="500px"></iframe>
-
 </body>
 </html>
