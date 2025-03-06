@@ -1,0 +1,68 @@
+/* 让按钮和 Markdown 组成垂直排列 */
+.markdown-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    /* 文字设定 */
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+
+    /* 外观设定，边框线等 */
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+
+    max-width: 100%;
+    background-color: #f9f9f9;
+}
+
+/* Markdown 内容的样式 */
+.markdown-content {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box; /* 包括边框和内边距 */
+}
+
+/* 表格样式 */
+table {
+    width: 100%; /* 表格自动占满容器 */
+    border-collapse: collapse;
+    overflow-wrap: break-word; /* 自动换行，避免内容超出 */
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+/* 按钮样式 */
+button {
+    width: 200px;
+    max-width: 80%;
+    padding: 10px;
+    margin: 0;
+    font-size: 16px;
+    background-color: rgb(24, 146, 126);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+}
+
+button:hover {
+    background-color: #45a049;
+}

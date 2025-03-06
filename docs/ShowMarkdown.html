@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="markdownLoader.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h2>Markdown Viewer</h2>
+
+    <!-- 返回前一页面的链接 -->
+    <a href="javascript:history.back()"
+        style="display: inline-block; margin-bottom: 15px; color: blue; text-decoration: none; font-size: 16px;">
+        ← 返回前页面
+    </a>
+
+    <div id="markdown-container"></div> <!-- 动态添加按钮和 Markdown 内容 -->
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const path = params.get('path') || '';  // 获取 path 参数
+            const files = params.get('files') ? params.get('files').split(',') : [];
+            return { path, files };
+        }
+
+        function createMarkdownSection(fileName, path) {
+            const container = document.getElementById("markdown-container");
+            const fullPath = path ? `${path}/${fileName}` : fileName; // 拼接路径
+            
+            const section = document.createElement("div");
+            section.className = "markdown-section";
+
+            const button = document.createElement("button");
+            button.textContent = fileName;
+            button.onclick = function () { loadMarkdown(fullPath, button); };
+
+            const markdownDiv = document.createElement("div");
+            markdownDiv.id = `markdown-content-${fullPath.replace(/\//g, "-")}`;
+            markdownDiv.className = "markdown-content";
+
+            section.appendChild(button);
+            section.appendChild(markdownDiv);
+            container.appendChild(section);
+        }
+
+        window.onload = function () {
+            const { path, files } = getQueryParams();
+            files.forEach(file => createMarkdownSection(file, path));
+        };
+    </script>
+
+</body>
+
+</html>

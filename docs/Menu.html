@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Japanese</title>
+    <!-- <style>
+        #hidden-content {
+            display: none;
+        }
+    </style> -->
+</head>
+
+<body>
+    <h2> Menu </h2>
+
+    <div>
+        <h2>learn Japanese</h2>
+        <!-- <li><a href="sitabayasi.html">月曜日</a></li>
+        <li><a href="saturday.html">土曜日</li>
+        <li><a href="sunday.html">日曜日</li>
+        <li><a href="my_grammar.html">文法（自分）</li> -->
+
+        <!-- <a href="ShowMarkdown.html?files=test,Sunday/sunday">查看 Markdown</a> -->
+        <!-- <a href="ShowMarkdown.html?path=Sunday&files=sunday">查看 Markdown</a> -->
+
+        <a id="sunday-link" href="#">查看 Sunday Markdown</a>
+        <a id="monday-link" href="#">查看 Monday Markdown</a>
+        <script>
+
+            // 设置 Sunday 的链接
+            setMarkdownLink("sunday-link", "Sunday", ["sunday"]);
+
+            // 设置 Monday 的链接
+            setMarkdownLink("monday-link", "Monday", ["条件"]);
+
+            function setMarkdownLink(id, path, files) {
+                const queryString = `path=${path}&files=${files.join(",")}`;
+                document.getElementById(id).href = `ShowMarkdown.html?${queryString}`;
+            }
+        </script>
+
+    </div>
+</body>
+
+</html>
