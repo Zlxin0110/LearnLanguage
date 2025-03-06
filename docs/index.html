@@ -1,68 +1,34 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>Learn Japanese</title>
-    <style>
-
-
-        /* 简单的样式调整（可选） */
-        #password-form {
-            margin-bottom: 20px;
-        }
-
-        #password {
-            padding: 5px;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-        button {
-            padding: 5px 10px;
-            font-size: 14px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
+
 <body>
-    <h2>Signin</h2>
+    <h2> Menu </h2>
 
-    <!-- 密码输入框 -->
-    <div id="password-form">
-        <input type="password" id="password" placeholder="输入密码">
-        <button onclick="verifyPassword()">Signin</button>
-    </div>
+    <div>
+        <li><a id="sunday-link" href="#">日曜日</a></li>
+        <li><a id="monday-link" href="#">月曜日</a></li>
+        <li><a id="saturday-link" href="#">日曜日</a></li>
+        <script>
 
+            // 设置 Sunday 的链接
+            setMarkdownLink("sunday-link", "Sunday", ["sunday"]);
+            // 设置 Monday 的链接
+            setMarkdownLink("monday-link", "Monday", ["条件", "順接"]);
+            // 设置 Saturday 的链接
+            setMarkdownLink("saturday-link", "Saturday", ["中級"]);
 
-
-    <script>
-        function verifyPassword() {
-            // 获取用户输入的密码
-            const password = document.getElementById("password").value;
-
-            // 设定正确的密码
-            const correctPassword = "1"; // 请替换为你的实际密码
-
-            // 验证密码
-            if (password === correctPassword) {
-                // 如果密码正确，显示隐藏内容
-                // document.getElementById("hidden-content").style.display = "block";
-
-                // 可选：跳转到 Menu.html 页面（如果需要直接跳转）
-                window.location.href = "Menu.html";
-            } else {
-                // 如果密码错误，弹出提示框
-                alert("密码错误，请重新输入！");
+            function setMarkdownLink(id, path, files) {
+                const queryString = `path=${path}&files=${files.join(",")}`;
+                document.getElementById(id).href = `ShowMarkdown.html?${queryString}`;
             }
-        }
-    </script>
+        </script>
+
+    </div>
 </body>
+
 </html>
