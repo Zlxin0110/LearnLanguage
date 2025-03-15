@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MemoLangApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0ed5118e5cfa75ff4116f48099249a5d2c6101b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+303769323c8afab25e91cb6c6f29e83cbe80fed5")]
 [assembly: System.Reflection.AssemblyProductAttribute("MemoLangApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MemoLangApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
