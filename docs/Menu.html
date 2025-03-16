@@ -24,7 +24,7 @@
             // 设置 Saturday 的链接
             setMarkdownLink("saturday-link", "Saturday", ["中級"]);
 
-            function setMarkdownLink(id, path, files) {
+            async function setMarkdownLink(id, path, files) {
                 const queryString = `path=${path}&files=${files.join(",")}`;
                 document.getElementById(id).href = `ShowMarkdown.html?${queryString}`;
             }
