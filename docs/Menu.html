@@ -17,9 +17,10 @@
         <li><a id="sunday-link" href="#">日曜日</a></li>
         <li><a id="monday-link" href="#">月曜日</a></li>
         <li><a id="saturday-link" href="#">土曜日</a></li>
+        <li><a id="self-link" href="#">self</a></li>
         <script>
             // 设置 Self 的链接
-            //setMarkdownLink("self-link", "Self", ["3月"]);
+            setMarkdownLink("self-link", "Self", ["3月"]);
             // 设置 Sunday 的链接
             setMarkdownLink("sunday-link", "Sunday", ["sunday"]);
             // 设置 Monday 的链接
@@ -31,6 +32,12 @@
                 const queryString = `path=${path}&files=${files.join(",")}`;
                 document.getElementById(id).href = `ShowMarkdown.html?${queryString}`;
             }
+            // ==================
+            // WebView2
+            // 指定本地 HTML 文件路径
+            // string localPath = @"D:\WorkSpace\LearnLang\WinFormWebBrowser\WinFormWebBrowser\html\Menu.html";
+            // 创建文件 URI 并加载到 WebView2
+            // webView21.Source = new Uri($"file:///{localPath}");
         </script>
 
     </div>
